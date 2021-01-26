@@ -1,0 +1,130 @@
+
+<style>
+.myb{
+  width: 30%;
+  height: 30%;
+  font-size: 40px;
+  font-family: Blippo, fantasy;
+  background-color: white;
+}
+.dif{
+	width: 30%;
+	height: 50px;
+	font-size: 30px;
+	font-family: Impact, fantasy;
+	background-color: green;
+}
+h1{
+	font-size: 40px;
+	text-shadow: 
+		1px -1px white,
+		-1px 1px white,
+		-1px -1px white,
+		1px 1px white;
+}
+body{
+  margin:10%;
+  background-image: url("https://i.pinimg.com/originals/01/d8/d8/01d8d8603df5aa4d114dfc6f67a13d41.jpg")
+}
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tick-Tack-Darts</title>
+</head>
+<body>
+
+<div class="row">
+	<button class="dif" onclick="setvalues('easy')">Easy</button>
+	<button class="dif" onclick="setvalues('medium')">Medium</button>
+	<button class="dif" onclick="setvalues('hard')">Hard</button>
+</div>
+<h1>Click to change color</h1>
+<div class="row">
+     <button class="myb" value='1' onclick="changecolor(this)" id="ul">0</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="u">0</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="ur">0</button>
+</div>
+<div class="row">
+     <button class="myb" value='1' onclick="changecolor(this)" id="ml">0</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="m">BullsEye</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="mr">0</button>
+</div>
+<div class="row">
+     <button class="myb" value='1' onclick="changecolor(this)" id="ll">0</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="l">0</button>
+     <button class="myb" value='1' onclick="changecolor(this)" id="lr">0</button>
+</div>
+
+<script>
+function changecolor(elem){
+switch(elem.value){
+  case "1":
+    elem.style.backgroundColor = "blue";
+    elem.value = "2";
+    break;
+  case "2":
+    elem.style.backgroundColor = "red";
+    elem.value = "3";
+    break;  
+  default:
+    elem.style.backgroundColor = "white";
+    elem.value = "1";
+  }
+}
+function setvalues(dif){
+switch(dif){
+	case "easy":
+	var possible = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+	var max = 20;
+	break;
+	case "medium":
+	var possible = ["Inner 1", "Outer 1", "Inner 2", "Outer 2", "Inner 3", "Outer 3", "Inner 4", "Outer 4", "Inner 5", "Outer 5", "Inner 6", "Outer 6", "Inner 7", "Outer 7", "Inner 8", "Outer 8", "Inner 9", "Outer 9", "Inner 10", "Outer 10",  "Inner 11", "Outer 11", "Inner 12", "Outer 12", "Inner 13", "Outer 13", "Inner 14", "Outer 14", "Inner 15", "Outer 15", "Inner 16", "Outer 16", "Inner 17", "Outer 17", "Inner 18", "Outer 18", "Inner 19", "Outer 19", "Inner 20", "Outer 20"];
+	var max = 40;
+	break;
+	case "hard":
+	var possible = ["Triple 1", "Double 1", "Triple 2", "Double 2", "Triple 3", "Double 3", "Triple 4", "Double 4", "Triple 5", "Double 5", "Triple 6", "Double 6", "Triple 7", "Double 7", "Triple 8", "Double 8", "Triple 9", "Double 9", "Triple 10", "Double 10", "Triple 11", "Double 11", "Triple 12", "Double 12", "Triple 13", "Double 13", "Triple 14", "Double 14", "Triple 15", "Double 15", "Triple 16", "Double 16", "Triple 17", "Double 17", "Triple 18", "Double 18", "Triple 19", "Double 19", "Triple 20", "Double 20", "Inner 1", "Outer 1", "Inner 2", "Outer 2", "Inner 3", "Outer 3", "Inner 4", "Outer 4", "Inner 5", "Outer 5", "Inner 6", "Outer 6", "Inner 7", "Outer 7", "Inner 8", "Outer 8", "Inner 9", "Outer 9", "Inner 10", "Outer 10",  "Inner 11", "Outer 11", "Inner 12", "Outer 12", "Inner 13", "Outer 13", "Inner 14", "Outer 14", "Inner 15", "Outer 15", "Inner 16", "Outer 16", "Inner 17", "Outer 17", "Inner 18", "Outer 18", "Inner 19", "Outer 19", "Inner 20", "Outer 20"];
+	var max = 80;
+	break;
+}
+
+  var used = [];
+  while(used.length < 8){
+    var num = Math.floor(Math.random() * Math.floor(max));
+    if(!used.includes(num)){
+      used.push(num);
+    }
+  }
+  document.getElementById("ul").innerHTML = possible[used[0]];
+  document.getElementById("u").innerHTML = possible[used[1]];
+  document.getElementById("ur").innerHTML = possible[used[2]];
+  document.getElementById("ml").innerHTML = possible[used[3]];
+  document.getElementById("mr").innerHTML = possible[used[4]];
+  document.getElementById("ll").innerHTML = possible[used[5]];
+  document.getElementById("l").innerHTML = possible[used[6]];
+  document.getElementById("lr").innerHTML = possible[used[7]];
+
+  document.getElementById("ul").style.backgroundColor = "white";
+  document.getElementById("u").style.backgroundColor = "white";
+  document.getElementById("ur").style.backgroundColor = "white";
+  document.getElementById("ml").style.backgroundColor = "white";
+  document.getElementById("m").style.backgroundColor = "white";
+  document.getElementById("mr").style.backgroundColor = "white";
+  document.getElementById("ll").style.backgroundColor = "white";
+  document.getElementById("l").style.backgroundColor = "white";
+  document.getElementById("lr").style.backgroundColor = "white";
+
+  document.getElementById("ul").value = "1";
+  document.getElementById("u").value = "1";
+  document.getElementById("ur").value = "1";
+  document.getElementById("ml").value = "1";
+  document.getElementById("m").value = "1";
+  document.getElementById("mr").value = "1";
+  document.getElementById("ll").value = "1";
+  document.getElementById("l").value = "1";
+  document.getElementById("lr").value = "1";
+
+}
+</script>
+</body>
+</html>
