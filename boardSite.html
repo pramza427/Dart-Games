@@ -23,8 +23,8 @@ h1{
 		1px 1px white;
 }
 body{
-  margin:10%;
-  background-image: url("https://i.pinimg.com/originals/01/d8/d8/01d8d8603df5aa4d114dfc6f67a13d41.jpg")
+	text-align: center;
+  	background-color: #d0ae2f;
 }
 </style>
 <!DOCTYPE html>
@@ -33,24 +33,22 @@ body{
 <title>Tick-Tack-Darts</title>
 </head>
 <body>
-
-<div class="row">
+<h1>Tick-Tack-Darts</h1>
+<div>
 	<button class="dif" onclick="setvalues('easy')">Easy</button>
 	<button class="dif" onclick="setvalues('medium')">Medium</button>
 	<button class="dif" onclick="setvalues('hard')">Hard</button>
 </div>
-<h1>Click to change color</h1>
-<div class="row">
+<h1>Click a Number to Change Color</h1>
+<div id="grid">
      <button class="myb" value='1' onclick="changecolor(this)" id="ul">0</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="u">0</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="ur">0</button>
-</div>
-<div class="row">
+	<br>
      <button class="myb" value='1' onclick="changecolor(this)" id="ml">0</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="m">BullsEye</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="mr">0</button>
-</div>
-<div class="row">
+     <br>
      <button class="myb" value='1' onclick="changecolor(this)" id="ll">0</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="l">0</button>
      <button class="myb" value='1' onclick="changecolor(this)" id="lr">0</button>
@@ -60,11 +58,11 @@ body{
 function changecolor(elem){
 switch(elem.value){
   case "1":
-    elem.style.backgroundColor = "blue";
+    elem.style.backgroundColor = "#2E48D1";
     elem.value = "2";
     break;
   case "2":
-    elem.style.backgroundColor = "red";
+    elem.style.backgroundColor = "#cb343f";
     elem.value = "3";
     break;  
   default:
@@ -104,25 +102,11 @@ switch(dif){
   document.getElementById("l").innerHTML = possible[used[6]];
   document.getElementById("lr").innerHTML = possible[used[7]];
 
-  document.getElementById("ul").style.backgroundColor = "white";
-  document.getElementById("u").style.backgroundColor = "white";
-  document.getElementById("ur").style.backgroundColor = "white";
-  document.getElementById("ml").style.backgroundColor = "white";
-  document.getElementById("m").style.backgroundColor = "white";
-  document.getElementById("mr").style.backgroundColor = "white";
-  document.getElementById("ll").style.backgroundColor = "white";
-  document.getElementById("l").style.backgroundColor = "white";
-  document.getElementById("lr").style.backgroundColor = "white";
-
-  document.getElementById("ul").value = "1";
-  document.getElementById("u").value = "1";
-  document.getElementById("ur").value = "1";
-  document.getElementById("ml").value = "1";
-  document.getElementById("m").value = "1";
-  document.getElementById("mr").value = "1";
-  document.getElementById("ll").value = "1";
-  document.getElementById("l").value = "1";
-  document.getElementById("lr").value = "1";
+  let elems = document.querySelectorAll('#grid > button');
+    	for(let elem of elems){
+    		elem.style.backgroundColor = "white";
+    		elem.value = "1";
+    	}
 
 }
 </script>
