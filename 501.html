@@ -1,0 +1,283 @@
+<style type="text/css">
+body{
+	width:100%;
+	text-align: center;
+	background-color: #d0ae2f;
+}
+div{
+	font-size: 30px;
+}
+h1{
+	font-size: 40px;
+	text-shadow: 
+		1px -1px white,
+		-1px 1px white,
+		-1px -1px white,
+		1px 1px white;
+}
+li{
+	border-bottom: 2px solid black;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+.winnerClass{
+	margin:auto;
+	width:100%;
+	background: blue;
+	border: 5px dashed red;
+	font-size: 50px;
+	color: red;
+	text-align: center;
+}
+.playerNum{
+	min-width: 60px;
+	min-height: 30px;
+	width:10%;
+	height:5%;
+	font-size: 20px;
+}	
+.hitNum{
+	min-width: 60px;
+	min-height: 30px;
+	width: 10%;
+	height:5%;
+	font-size: 25px;
+}
+.scoreButton{
+	min-width: 105px;
+	min-height: 30px;
+	width:17%;
+	height:5%;
+	font-size: 20px;
+}
+.startButton{
+	min-width: 330px;
+	min-height: 30px;
+	width:52%;
+	height:5%;
+	font-size: 20px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.column {
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>301, 501, 1001</title>
+</head>
+<body>
+
+	<h1>301, 501, 1001</h1>
+	<!-- First Screen Start -->
+	<div id="choosePlayers">
+		How many players?<br>
+		<button class="playerNum" onclick="clickedPlayer(this)" value=1>1</button>
+		<button class="playerNum" onclick="clickedPlayer(this)" value=2>2</button>
+		<button class="playerNum" onclick="clickedPlayer(this)" value=3>3</button>
+		<button class="playerNum" onclick="clickedPlayer(this)" value=4>4</button>
+		<button class="playerNum" onclick="clickedPlayer(this)" value=2>2 v 2</button>
+	</div>
+	<div id="chooseMaxScore">
+		Total Score?<br>
+		<button class="scoreButton" onclick="clickedGoal(this)" value=301>301</button>
+		<button class="scoreButton" onclick="clickedGoal(this)" value=501>501</button>
+		<button class="scoreButton" onclick="clickedGoal(this)" value=1001>1001</button>
+	</div>
+	<div id="startDiv">
+		Ready?<br>
+		<button class="startButton" onclick="clickedStart(this)">Start</button>
+	</div>
+	<!-- First Screen End -->
+	
+	<!-- Second Screen Start -->
+	<div id="hitValues" style="display:none;">
+		Which numbers were hit?<br>
+		<button class="hitNum" onclick="clickedScore(this)" value=1>1</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=2>2</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=3>3</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=4>4</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=5>5</button><br>
+		<button class="hitNum" onclick="clickedScore(this)" value=6>6</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=7>7</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=8>8</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=9>9</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=10>10</button><br>
+		<button class="hitNum" onclick="clickedScore(this)" value=11>11</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=12>12</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=13>13</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=14>14</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=15>15</button><br>
+		<button class="hitNum" onclick="clickedScore(this)" value=16>16</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=17>17</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=18>18</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=19>19</button>
+		<button class="hitNum" onclick="clickedScore(this)" value=20>20</button><br>
+	</div>
+
+	<div id="roundScore" style="display:none;">
+		<div class="row">
+			<div>Current Round Score:</div>
+			<div id="currentScore">0</div>
+			<button class="scoreButton" id="clearButton" onclick="clickedClear()">Clear</button>
+			<button class ="scoreButton" id="endTurnButton" onclick="clickedDone()">End Turn</button>
+		</div>
+	</div>
+
+	<div id="scoreBoard" class="row">
+		<!-- Columns's for points placed here once player number is determined -->
+	</div>
+	<!-- Second Screen End -->
+
+</body>
+</html>
+
+<script type="text/javascript">
+	// Set values for use elsewhere
+	let total_player_val = 0; // holds number of rows to make based on player number
+	let total_score_val = 0; // holds max score
+	let current_player = 1; // holds which player's turn it is
+	let player_scores = []; // holds each players current score
+
+    function clickedPlayer(elem){
+    	elem.style.backgroundColor = "blue";
+    	total_player_val = elem.value;
+    	let elems = document.querySelectorAll('#choosePlayers > button');
+    	for(let otherelems of elems){
+    		if(otherelems.value != elem.value){
+    			otherelems.style.backgroundColor = "white";
+    		}
+    	}
+    }
+
+    function clickedGoal(elem){
+    	elem.style.backgroundColor = "blue";
+    	total_score_val = elem.value;
+    	let scoreElems = document.querySelectorAll('#chooseMaxScore > button');
+    	for(let otherelems of scoreElems){
+    		if(otherelems.value != elem.value){
+    			otherelems.style.backgroundColor = "white";
+    		}
+    	}
+    }
+
+    function clickedScore(elem){
+    	var score = document.querySelector("#currentScore");
+    	score.value = parseInt(score.innerHTML) + parseInt(elem.value);
+    	score.innerHTML = score.value;
+    }
+
+    function clickedStart(elem){
+    	if(total_score_val == 0 || total_player_val == 0){
+    		alert("Please enter number of players and a target score");
+    	}
+    	else{
+    		document.querySelector("#choosePlayers").style.display = "none";
+    		document.querySelector("#chooseMaxScore").style.display = "none";
+    		document.querySelector("#startDiv").style.display = "none";
+    		document.querySelector("#hitValues").style.display = "block";
+    		document.querySelector("#roundScore").style.display = "block";
+    		let existingDivs = document.getElementById("scoreBoard");
+    		while(existingDivs.firstChild){
+    			existingDivs.removeChild(existingDivs.lastChild);
+    		}
+
+    		var i;
+    		
+    		for(i = 1; i <= total_player_val; i++){
+    			player_scores.push(total_score_val);
+    			// Create a column for each player
+    			var col1 = document.createElement("div");
+    			col1.classList.add("column");
+    			col1.id = "player" + i;
+    			col1.style.width = "" + 100/total_player_val-5 + "%";
+    			
+    			// Create a text node as a header for each column
+    			col1.appendChild(document.createTextNode("Player "+ i));
+
+    			// Create an ordered list that will contain the scores of each player for each round
+    			var player_list = document.createElement("ol");
+    			player_list.id = "list" + i;
+    			col1.appendChild(player_list);
+    			document.querySelector("#scoreBoard").appendChild(col1);
+
+    			// Every Player starts with the Goal Score
+    			var start_val = document.createElement("li");
+    			start_val.innerHTML = total_score_val;
+    			player_list.appendChild(start_val);
+
+    		}
+    		
+    	}
+    }
+
+    function clickedClear(){
+    	document.querySelector("#currentScore").innerHTML = 0;
+    }
+
+    function clickedDone(){
+    	// Get the current turn score
+    	var val = document.querySelector("#currentScore").value;
+    	// Impossible score was input
+    	if(val > 180){
+    		// Clear the current turn score for the next player
+    		document.querySelector("#currentScore").innerHTML = 0;
+    		document.querySelector("#currentScore").value = 0;
+    		alert("Quit Cheating!");
+    	}
+    	else{
+    		// Create new list item that is the players new score
+    		// by subtracting their turn score from previous score
+    		var li = document.createElement("li");
+    		let new_score = player_scores[current_player-1] - val;
+
+    		switch (true){
+    			case new_score < 0:
+    				li.innerHTML = player_scores[current_player-1];
+    				break;
+    			case new_score > 0:
+    				player_scores[current_player-1] = new_score;
+    				li.innerHTML = new_score;
+    				break;
+    			default:
+    				player_scores[current_player-1] = new_score;
+    				li.innerHTML = new_score;
+    				displayWinner(current_player);
+    				break;
+    		}
+
+    		document.querySelector("#list" + current_player).appendChild(li);
+    	
+
+    		// Clear the current turn score for the next player
+    		document.querySelector("#currentScore").innerHTML = 0;
+    		document.querySelector("#currentScore").value = 0;
+
+    		// Get the next player
+    		current_player += 1;
+    		if(current_player > total_player_val){
+    			current_player = 1;
+    		}
+    	}
+    	
+    }
+
+    function displayWinner(winner_num){
+    	var winner_div = document.createElement("div");
+    	winner_div.innerHTML = "Player " + winner_num + " Won!"
+    	winner_div.classList.add("winnerClass");
+    	document.body.appendChild(winner_div);
+
+    	var inst = document.createElement("div");
+    	inst.innerHTML = "Refresh to restart the game";
+    	document.body.appendChild(inst);
+    }
+</script>
