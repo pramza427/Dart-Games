@@ -1,19 +1,5 @@
 
 <style>
-.myb{
-  width: 30%;
-  height: 30%;
-  font-size: 40px;
-  font-family: Blippo, fantasy;
-  background-color: white;
-}
-.dif{
-	width: 30%;
-	height: 50px;
-	font-size: 30px;
-	font-family: Impact, fantasy;
-	background-color: green;
-}
 h1{
 	font-size: 40px;
 	text-shadow: 
@@ -26,6 +12,43 @@ body{
 	text-align: center;
   	background-color: #d0ae2f;
 }
+ul li{
+  font-size: 20px;
+  float: left;
+}
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width: 99%;
+}
+li a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-left: 2px solid grey;
+}
+.clickable:hover{
+  background-color: #111;
+}
+.myb{
+  width: 30%;
+  height: 30%;
+  font-size: 40px;
+  font-family: Blippo, fantasy;
+  background-color: white;
+}
+.dif{
+  width: 30%;
+  height: 50px;
+  font-size: 30px;
+  font-family: Impact, fantasy;
+  background-color: green;
+}
 </style>
 <!DOCTYPE html>
 <html>
@@ -33,6 +56,12 @@ body{
 <title>Tick-Tack-Darts</title>
 </head>
 <body>
+  <!-- Simple Navbar -->
+  <ul>
+    <li class="navelem"><a class="clickable" href="https://pramza427.github.io/Dart-Games/501.html">501</a></li>
+    <li class="navelem"><a class="clickable" href="#">Tick-Tack-Darts</a></li>
+    <li class="navelem"><a class="clickable" href="#about">About</a></li>
+  </ul>  
 <h1>Tick-Tack-Darts</h1>
 <div>
 	<button class="dif" onclick="setvalues('easy')">Easy</button>
