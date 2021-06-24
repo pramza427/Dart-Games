@@ -1,0 +1,196 @@
+<style>
+h1{
+	font-size: 40px;
+	text-shadow: 
+		1px -1px white,
+		-1px 1px white,
+		-1px -1px white,
+		1px 1px white;
+}
+body{
+  height: 100%;
+	text-align: center;
+  background-color: #d0ae2f;
+}
+ul li{
+  font-size: 20px;
+  float: left;
+}
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width: 99%;
+}
+li a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-left: 2px solid grey;
+}
+.clickable:hover{
+  background-color: #111;
+}
+
+button{
+  height: 8%;
+  font-size: 25px;
+}
+.score{
+  font-size: 30px;
+  margin: 30px;
+}
+.scoreLabel{
+  height: 100%;
+  font-size: 35px;
+  margin: 12px;
+}
+.middle{
+  height: 100%;
+}
+.marker{
+  padding: 30px 4px 30px 4px;
+  margin: 2px;
+  border: 2px solid grey;
+}
+.row{
+  margin: 20px;
+}
+.playerLabels{
+  margin-left: 20%;
+  width: 60%;
+  display: flex;
+  font-size: 30px;
+  justify-content: space-around;
+}
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cricket Scoreboard</title>
+</head>
+<body>
+  <!-- Simple Navbar -->
+  <ul>
+    <li class="navelem"><a class="clickable" href="501.html">501</a></li>
+    <li class="navelem"><a class="clickable" href="#">Tick-Tack-Darts</a></li>
+    <li class="navelem"><a class="clickable" href="Cricket.html">Cricket</a></li>
+    <li class="navelem"><a class="clickable" href="#about">About</a></li>
+  </ul>  
+<h1>Cricket</h1>
+<!-- Editable Player Labels -->
+<div class="playerLabels">
+  <div contenteditable="true" >Player1</div>
+  <div contenteditable="true" >Player2</div>
+</div>
+
+<div class="row" id="15">
+  <span class="score p1" id="p1Score15">0</span>
+  <button class="but3" onclick="addThree(this)" id="p1">+3</button>
+  <button class="but2" onclick="addTwo(this)" id="p1">+2</button>
+  <button class="but1" onclick="addOne(this)" id="p1">+1</button>
+  <span class="middle">
+    <span class="marker p1marker" value='0' id='m1'></span>
+    <span class="marker p1marker" value='0' id='m2'></span>
+    <span class="marker p1marker" value='0' id='m3'></span>
+    <span class="scoreLabel">15</span>
+    <span class="marker p2marker" value='0' id='m3'></span>
+    <span class="marker p2marker" value='0' id='m2'></span>
+    <span class="marker p2marker" value='0' id='m1'></span>
+  </span>
+  <button class="but1" onclick="addOne(this)" id="p2">+1</button>
+  <button class="but2" onclick="addTwo(this)" id="p2">+2</button>
+  <button class="but3" onclick="addThree(this)" id="p2">+3</button>
+  <span class="score p2" id="p2Score15">0</span>
+</div>
+
+
+<script>
+
+function addThree(elem){
+  addTwo(elem);
+  addOne(elem);
+}
+function addTwo(elem){
+  addOne(elem);
+  addOne(elem);
+}
+function addOne(elem){
+  let val = elem.value;
+  let player = elem.id;
+  let pColor = "blue"
+  if(player === "p2")
+    pColor = "red";
+  let parent = elem.parentElement;
+  let scored = parseInt(parent.id);
+  let markerCount = countMarkers(parent, player);
+  let correctMarker = null;
+
+  switch(markerCount){
+    case 0:
+      correctMarker = parent.querySelector("#m1."+player+"marker");
+      correctMarker.value = 1;
+      correctMarker.style.backgroundColor = pColor;
+      break;
+    case 1:
+      correctMarker = parent.querySelector("#m2."+player+"marker");
+      correctMarker.value = 1;
+      correctMarker.style.backgroundColor = pColor;
+      break;
+    case 2:
+      correctMarker = parent.querySelector("#m3."+player+"marker");
+      correctMarker.value = 1;
+      correctMarker.style.backgroundColor = pColor;
+      break;
+    case 3:
+      let playerScore = parseInt(parent.querySelector("#"+player+"Score"+scored).innerHTML);
+      playerScore += scored;
+      parent.querySelector("#"+player+"Score"+scored).innerHTML = playerScore
+      break;
+  }
+
+}
+
+function countMarkers(parent, player){
+  let count = 0;
+  let markers = parent.querySelectorAll("."+player+"marker");
+  markers.forEach( elem => {
+    if(elem.value === 1){
+      count++;
+    }
+  });
+  return count;
+}
+
+// generate remaining rows from row 15
+let ogrow = document.querySelector(".row");
+for(var i = 16; i <= 20; i++){
+  let newRow = ogrow.cloneNode(true);
+  newRow.id = i;
+  newRow.querySelector(".scoreLabel").innerHTML = i;
+  newRow.querySelector("#p1Score15").id = "p1Score"+i;
+  newRow.querySelector("#p2Score15").id = "p2Score"+i;
+  document.querySelector("body").appendChild(newRow);
+}
+
+// Create the bullseye row
+let newRow = ogrow.cloneNode(true);
+newRow.id = 25;
+newRow.querySelector(".scoreLabel").innerHTML = "Bullseye";
+newRow.querySelector("#p1Score15").id = "p1Score25";
+newRow.querySelector("#p2Score15").id = "p2Score25";
+newRow.querySelector(".but3").remove();
+newRow.querySelector(".but3").remove();
+document.querySelector("body").appendChild(newRow);
+
+// Create the final score row
+
+
+
+</script>
+</body>
+</html>
