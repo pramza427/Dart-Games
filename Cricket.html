@@ -37,14 +37,16 @@ li a{
 }
 
 button{
-  height: 8%;
+  height: 9vh;
   font-size: 25px;
 }
 .score{
+  display: inline-block;
   font-size: 30px;
-  margin: 30px;
+  margin: 3vw;
+  width: 8vw;
 }
-.scoreLabel{
+#scoreLabel{
   height: 100%;
   font-size: 35px;
   margin: 12px;
@@ -53,7 +55,7 @@ button{
   height: 100%;
 }
 .marker{
-  padding: 30px 4px 30px 4px;
+  padding: 3vh 4px 3vh 4px;
   margin: 2px;
   border: 2px solid grey;
 }
@@ -83,6 +85,7 @@ button{
   </ul>  
 <h1>Cricket</h1>
 <!-- Editable Player Labels -->
+<div class="container">
 <div class="playerLabels">
   <div contenteditable="true" >Player1</div>
   <div contenteditable="true" >Player2</div>
@@ -97,7 +100,7 @@ button{
     <span class="marker p1marker" value='0' id='m1'></span>
     <span class="marker p1marker" value='0' id='m2'></span>
     <span class="marker p1marker" value='0' id='m3'></span>
-    <span class="scoreLabel">15</span>
+    <span class="unopened" value='0' id="scoreLabel">15</span>
     <span class="marker p2marker" value='0' id='m3'></span>
     <span class="marker p2marker" value='0' id='m2'></span>
     <span class="marker p2marker" value='0' id='m1'></span>
@@ -106,6 +109,8 @@ button{
   <button class="but2" onclick="addTwo(this)" id="p2">+2</button>
   <button class="but3" onclick="addThree(this)" id="p2">+3</button>
   <span class="score p2" id="p2Score15">0</span>
+</div>
+
 </div>
 
 
@@ -145,11 +150,27 @@ function addOne(elem){
       correctMarker = parent.querySelector("#m3."+player+"marker");
       correctMarker.value = 1;
       correctMarker.style.backgroundColor = pColor;
+      let middleStatus = parent.querySelector("#scoreLabel").className;
+      console.log(middleStatus);
+      if(middleStatus === "open"){
+        if(player != parent.querySelector("#scoreLabel").value)
+          parent.querySelector("#scoreLabel").className = "closed";
+      }
+      else if(middleStatus === "unopened"){
+        parent.querySelector("#scoreLabel").className = "open";
+        parent.querySelector("#scoreLabel").value = player;
+      }
       break;
     case 3:
       let playerScore = parseInt(parent.querySelector("#"+player+"Score"+scored).innerHTML);
-      playerScore += scored;
-      parent.querySelector("#"+player+"Score"+scored).innerHTML = playerScore
+      let status = parent.querySelector("#scoreLabel").className;
+      if(status === "open"){
+        if(player === parent.querySelector("#scoreLabel").value){
+          playerScore += scored;
+          parent.querySelector("#"+player+"Score"+scored).innerHTML = playerScore
+        }
+      }
+      
       break;
   }
 
@@ -171,21 +192,21 @@ let ogrow = document.querySelector(".row");
 for(var i = 16; i <= 20; i++){
   let newRow = ogrow.cloneNode(true);
   newRow.id = i;
-  newRow.querySelector(".scoreLabel").innerHTML = i;
+  newRow.querySelector("#scoreLabel").innerHTML = i;
   newRow.querySelector("#p1Score15").id = "p1Score"+i;
   newRow.querySelector("#p2Score15").id = "p2Score"+i;
-  document.querySelector("body").appendChild(newRow);
+  document.querySelector(".container").appendChild(newRow);
 }
 
 // Create the bullseye row
 let newRow = ogrow.cloneNode(true);
 newRow.id = 25;
-newRow.querySelector(".scoreLabel").innerHTML = "Bullseye";
+newRow.querySelector("#scoreLabel").innerHTML = "Bullseye";
 newRow.querySelector("#p1Score15").id = "p1Score25";
 newRow.querySelector("#p2Score15").id = "p2Score25";
 newRow.querySelector(".but3").remove();
 newRow.querySelector(".but3").remove();
-document.querySelector("body").appendChild(newRow);
+document.querySelector(".container").appendChild(newRow);
 
 // Create the final score row
 
