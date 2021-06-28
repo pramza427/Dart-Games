@@ -8,6 +8,7 @@ h1{
 		1px 1px white;
 }
 body{
+  margin: 0px;
   height: 100%;
 	text-align: center;
   background-color: #d0ae2f;
@@ -22,7 +23,7 @@ ul{
   padding: 0;
   overflow: hidden;
   background-color: #333;
-  width: 99%;
+  width: 100%;
 }
 li a{
   display: block;
@@ -50,6 +51,17 @@ button{
   height: 100%;
   font-size: 35px;
   margin: 12px;
+  padding: 10px;
+}
+.open[data-player="p1"]{
+  border: 4px solid blue;
+}
+.open[data-player="p2"]{
+  border: 4px solid red;
+}
+.closed{
+  border: 0px;
+  text-decoration: line-through;
 }
 .middle{
   height: 100%;
@@ -60,7 +72,8 @@ button{
   border: 2px solid grey;
 }
 .row{
-  margin: 20px;
+  margin: 5px;
+  height: 10vh;
 }
 .playerLabels{
   margin-left: 20%;
@@ -68,6 +81,19 @@ button{
   display: flex;
   font-size: 30px;
   justify-content: space-around;
+}
+.finalScore{
+  display: inline-block;
+  font-size: 30px;
+  margin: 3vw;
+  width: 8vw;
+}
+.finalLabel{
+  font-size: 35px;
+  margin: 12px;
+  margin-left: 140px;
+  margin-right: 140px;
+  padding: 10px;
 }
 </style>
 <!DOCTYPE html>
@@ -100,7 +126,7 @@ button{
     <span class="marker p1marker" value='0' id='m1'></span>
     <span class="marker p1marker" value='0' id='m2'></span>
     <span class="marker p1marker" value='0' id='m3'></span>
-    <span class="unopened" value='0' id="scoreLabel">15</span>
+    <span class="unopened" data-player='0' id="scoreLabel">15</span>
     <span class="marker p2marker" value='0' id='m3'></span>
     <span class="marker p2marker" value='0' id='m2'></span>
     <span class="marker p2marker" value='0' id='m1'></span>
@@ -109,10 +135,17 @@ button{
   <button class="but2" onclick="addTwo(this)" id="p2">+2</button>
   <button class="but3" onclick="addThree(this)" id="p2">+3</button>
   <span class="score p2" id="p2Score15">0</span>
-</div>
+</div> <!-- End of row 15 -->
 
-</div>
+</div> <!-- End of Container -->
 
+<div class="row" id="finalScores">
+  <span class="finalScore" id="p1finalScore">0</span>
+  <span class="finalLabel">Total Score</span>
+  <span class="finalScore" id="p2finalScore">0</span>
+</div>
+</body>
+</html>
 
 <script>
 
@@ -153,27 +186,29 @@ function addOne(elem){
       let middleStatus = parent.querySelector("#scoreLabel").className;
       console.log(middleStatus);
       if(middleStatus === "open"){
-        if(player != parent.querySelector("#scoreLabel").value)
+        if(player != parent.querySelector("#scoreLabel").data-player)
           parent.querySelector("#scoreLabel").className = "closed";
       }
       else if(middleStatus === "unopened"){
         parent.querySelector("#scoreLabel").className = "open";
-        parent.querySelector("#scoreLabel").value = player;
+        parent.querySelector("#scoreLabel").dataset.player = player;
       }
       break;
     case 3:
       let playerScore = parseInt(parent.querySelector("#"+player+"Score"+scored).innerHTML);
+      let finalplayerScore = parseInt(document.querySelector("#"+player+"finalScore").innerHTML);
       let status = parent.querySelector("#scoreLabel").className;
       if(status === "open"){
-        if(player === parent.querySelector("#scoreLabel").value){
+        if(player === parent.querySelector("#scoreLabel").dataset.player){
           playerScore += scored;
-          parent.querySelector("#"+player+"Score"+scored).innerHTML = playerScore
+          finalplayerScore += scored;
+          parent.querySelector("#"+player+"Score"+scored).innerHTML = playerScore;
+          document.querySelector("#"+player+"finalScore").innerHTML = finalplayerScore;
+
         }
       }
-      
       break;
   }
-
 }
 
 function countMarkers(parent, player){
@@ -213,5 +248,3 @@ document.querySelector(".container").appendChild(newRow);
 
 
 </script>
-</body>
-</html>
