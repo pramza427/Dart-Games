@@ -1,0 +1,45 @@
+body{
+    margin: 0px;
+  width:100%;
+  text-align: center;
+  background-color: #DCDCDD;
+}
+div{
+  font-size: 30px;
+}
+h1{
+  font-size: 40px;
+  text-shadow: 
+    1px -1px white,
+    -1px 1px white,
+    -1px -1px white,
+    1px 1px white;
+}
+ol li{
+  border-bottom: 2px solid black;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+ul li{
+  font-size: 20px;
+  float: left;
+}
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #46494C;
+  width: 100%;
+}
+li a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-left: 2px solid grey;
+}
+.clickable:hover{
+  background-color: #4C5C68;
+}

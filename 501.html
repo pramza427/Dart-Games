@@ -1,48 +1,6 @@
 <style type="text/css">
-body{
-    margin: 0px;
-	width:100%;
-	text-align: center;
-	background-color: #d0ae2f;
-}
-div{
-	font-size: 30px;
-}
-h1{
-	font-size: 40px;
-	text-shadow: 
-		1px -1px white,
-		-1px 1px white,
-		-1px -1px white,
-		1px 1px white;
-}
-ol li{
-	border-bottom: 2px solid black;
-	padding-bottom: 8px;
-	padding-top: 8px;
-}
-ul li{
-	font-size: 20px;
-	float: left;
-}
-ul{
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-	width: 100%;
-}
-li a{
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	border-left: 2px solid grey;
-}
-.clickable:hover{
-	background-color: #111;
+#startDiv{
+    margin-top: 30px;
 }
 .winnerClass{
 	margin:auto;
@@ -96,12 +54,13 @@ li a{
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="style.css">
 	<title>301, 501, 1001</title>
 </head>
 <body>
 	<!-- Simple Navbar -->
 	<ul>
-		<li class="navelem"><a class="clickable" href="#">501</a></li>
+		<li class="navelem"><a class="clickable" href="501.html">501</a></li>
 		<li class="navelem"><a class="clickable" href="Tick-Tack-Darts.html">Tick-Tack-Darts</a></li>
         <li class="navelem"><a class="clickable" href="Cricket.html">Cricket</a></li>
 		<li class="navelem"><a class="clickable" href="#about">About</a></li>
@@ -184,7 +143,7 @@ li a{
 	let togo = 1;				// used when teams are enabled
 
     function clickedPlayer(elem){
-    	elem.style.backgroundColor = "blue";
+    	elem.style.backgroundColor = "#1985A1";
     	if(elem.value <= 4){
     		total_player_val = elem.value;
     		teams = false;
@@ -207,7 +166,7 @@ li a{
     }
 
     function clickedGoal(elem){
-    	elem.style.backgroundColor = "blue";
+    	elem.style.backgroundColor = "#1985A1";
     	total_score_val = elem.value;
     	let scoreElems = document.querySelectorAll('#chooseMaxScore > button');
     	for(let otherelems of scoreElems){
@@ -279,7 +238,7 @@ li a{
 
     			// Add border around first player
     			var nextPlayer = document.querySelector("#name"+current_player);
-    			nextPlayer.style.border = "2px solid blue";
+    			nextPlayer.style.border = "4px solid #1985A1";
     		}
     		
     	}
@@ -303,7 +262,8 @@ li a{
     		// Create new list item that is the players new score
     		// by subtracting their turn score from previous score
     		var li = document.createElement("li");
-    		let new_score = player_scores[current_player-1] - val;
+            let old_score = player_scores[current_player-1];
+    		let new_score = old_score - val;
 
     		switch (true){
     			case new_score < 0:
@@ -314,9 +274,11 @@ li a{
     				li.innerHTML = new_score;
     				break;
     			default:
-    				player_scores[current_player-1] = new_score;
+                    player_scores[current_player-1] = new_score;
     				li.innerHTML = new_score;
-    				displayWinner(current_player);
+                    if(old_score != 0){
+    				    displayWinner(current_player);
+                    }
     				break;
     		}
 
@@ -352,7 +314,7 @@ li a{
     		});
     		// add border around next player
     		var nextPlayer = document.querySelector("#name"+togo);
-    		nextPlayer.style.border = "2px solid blue";
+    		nextPlayer.style.border = "4px solid #1985A1";
     	}
     	
     }
